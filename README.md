@@ -41,7 +41,7 @@ You must have the following installed:
 
 1.  **Clone the repository:**
     ```bash
-    git clone <YOUR_REPO_URL_HERE>
+    git clone <https://github.com/AaryanAgrawal96/URL-Shortener.git>
     cd URL-SHORTENER
     ```
 
@@ -53,8 +53,7 @@ You must have the following installed:
 3.  **Configure Environment:**
     You will need to set up your MongoDB connection string. Create a file named **`.env`** in the project root and add your database URL:
     ```
-    MONGO_URL="mongodb://localhost:27017/url_shortner_db" 
-    # Replace with your actual MongoDB connection string
+    MONGO_URL="mongodb://localhost:27017/url-shortener" 
     ```
 
 4.  **Start the server:**
@@ -62,7 +61,7 @@ You must have the following installed:
     npm start
     # The server will typically run on port 8001 (or as configured in index.js)
     ```
-    The server will now be running at `http://localhost:8001` (or your chosen port).
+    The server will now be running at `http://localhost:8001`.
 
 ---
 
