@@ -13,8 +13,7 @@ async function generateShortUrl(req, res) {
     redirectUrl: body.url,
     visitHistory: [],
   });
-
-  return res.status(200).json({ request: "success", shortID: shortId });
+  res.redirect("/?id=" + shortId);
 }
 
 async function redirectToOriginalUrl(req, res) {
