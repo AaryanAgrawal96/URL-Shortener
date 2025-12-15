@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { Url } from "../models/url.js";
-
+ 
 async function generateShortUrl(req, res) {
   const shortId = nanoid(8);
   const body = req.body;
@@ -12,6 +12,7 @@ async function generateShortUrl(req, res) {
     shortID: shortId,
     redirectUrl: body.url,
     visitHistory: [],
+    createdBy: req.user._id,
   });
   res.redirect("/?id=" + shortId);
 }
