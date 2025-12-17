@@ -1,14 +1,22 @@
 import express from "express";
 import { Url } from "../models/url.js";
+import { restrictTo } from "../middleware/auth.js";
 
 const staticRouter = express.Router();
 
-staticRouter.get("/", async (req, res) => {
-  if (!req.user) return res.redirect("/login");
-  const allUrls = await Url.find({ createdBy: req.user._id });
+staticRouter.get("/", restrictTo(["NORMAL", "ADMIN"]), async (req, res) => {
+  const allUrls =
+    req.user && req.user.role === "ADMIN"
+      ? await Url.find({}).populate({ path: "createdBy", select: "username" })
+      : await Url.find({ createdBy: req.user._id }).populate({
+          path: "createdBy",
+          select: "username",
+        });
+
   res.render("home", {
     id: req.query.id,
     urls: allUrls,
+    user: req.user,
   });
 });
 

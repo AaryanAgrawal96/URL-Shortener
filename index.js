@@ -3,7 +3,7 @@ import { connectDB } from "./dbConnection.js";
 import path from "path";
 import { Url } from "./models/url.js";
 import cookieParser from "cookie-parser";
-import { restrictToLoggedInUser, checkAuth } from "./middleware/auth.js";
+import { checkForAuthentication, restrictTo } from "./middleware/auth.js";
 
 import { urlRouter } from "./routes/url.js";
 import { staticRouter } from "./routes/staticRouter.js";
@@ -19,9 +19,10 @@ app.set("views", path.resolve("./views"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(checkForAuthentication);
 
-app.use("/url", restrictToLoggedInUser, urlRouter);
+app.use("/url", restrictTo(["NORMAL", "ADMIN"]), urlRouter);
 app.use("/user", userRouter);
-app.use("/", checkAuth, staticRouter);
+app.use("/", staticRouter);
 
 app.listen(PORT, () => console.log(`Server started at PORT: ${PORT}`));

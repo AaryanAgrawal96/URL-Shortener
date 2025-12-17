@@ -18,14 +18,16 @@
     <% if (locals.id) { %>
     <p>Shortened URL: http://localhost:8001/url/<%= id %></p>
     <% } %>
-    <div>
-      <% if (locals.urls) { %>
+    <% if (locals.urls) { %>
       <table>
         <thead>
           <th>S. No.</th>
           <th>Original URL</th>
           <th>Shortened URL</th>
           <th>Number of visits</th>
+          <% if (locals.user && locals.user.role === "ADMIN") { %>
+          <th>Created By</th>
+          <% } %>
         </thead>
         <tbody>
           <% urls.forEach((url, index) => { %>
@@ -34,11 +36,14 @@
             <td><%= url.redirectUrl %></td>
             <td>http://localhost:8001/url/<%= url.shortID %></td>
             <td><%= url.visitHistory.length %></td>
+            <% if (locals.user && locals.user.role === "ADMIN") { %>
+            <td><%= url.createdBy && url.createdBy.username ? url.createdBy.username : '' %></td>
+            <% } %>
           </tr>
           <% }) %>
         </tbody>
       </table>
-      <% } %>
+    <% } %>
     </div>
   </body>
 </html>
