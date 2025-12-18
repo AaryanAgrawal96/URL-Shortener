@@ -1,3 +1,4 @@
+import "./config/env.js"
 import express, { urlencoded } from "express";
 import { connectDB } from "./dbConnection.js";
 import path from "path";
@@ -11,6 +12,10 @@ import { userRouter } from "./routes/user.js";
 
 const app = express();
 const PORT = 8001;
+
+if (!process.env.JWT_SECRET) {
+  throw new Error("JWT_SECRET not set");
+}
 
 connectDB("mongodb://localhost:27017/url-shortener");
 

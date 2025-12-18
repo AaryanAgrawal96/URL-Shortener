@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
-
-const secret = "Neutr1n0K1ng69";
+const secret = process.env.JWT_SECRET;
 
 function setUser(user) {
   const payload = { 
